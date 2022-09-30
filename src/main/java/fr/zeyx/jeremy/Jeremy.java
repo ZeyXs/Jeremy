@@ -1,5 +1,6 @@
 package fr.zeyx.jeremy;
 
+import fr.zeyx.jeremy.commands.CommandManager;
 import fr.zeyx.jeremy.listeners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -7,9 +8,12 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+import java.util.logging.Logger;
+
 @SuppressWarnings("ALL")
 public class Jeremy {
 
+    public static final Logger LOGGER = Logger.getLogger(Jeremy.class.getName());
     public final Dotenv config;
     public final ShardManager shardManager;
 
@@ -24,6 +28,7 @@ public class Jeremy {
         shardManager = builder.build();
 
         shardManager.addEventListener(new EventListener());
+        shardManager.addEventListener(new CommandManager());
     }
 
     public Dotenv getConfig() {
