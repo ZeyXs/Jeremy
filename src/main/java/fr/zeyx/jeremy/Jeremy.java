@@ -1,6 +1,7 @@
 package fr.zeyx.jeremy;
 
 import fr.zeyx.jeremy.commands.CommandManager;
+import fr.zeyx.jeremy.commands.HelpCommand;
 import fr.zeyx.jeremy.listeners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -13,9 +14,9 @@ import java.util.logging.Logger;
 @SuppressWarnings("ALL")
 public class Jeremy {
 
-    public static final Logger LOGGER = Logger.getLogger(Jeremy.class.getName());
     public final Dotenv config;
     public final ShardManager shardManager;
+    public final CommandManager commandManager = new CommandManager();
 
     public Jeremy() {
         config = Dotenv.configure().load();
@@ -28,7 +29,9 @@ public class Jeremy {
         shardManager = builder.build();
 
         shardManager.addEventListener(new EventListener());
-        shardManager.addEventListener(new CommandManager());
+        shardManager.addEventListener(commandManager);
+
+        commandManager.addCommand(new HelpCommand());
     }
 
     public Dotenv getConfig() {
@@ -37,6 +40,10 @@ public class Jeremy {
 
     public ShardManager getShardManager() {
         return shardManager;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public static void main(String[] args) {

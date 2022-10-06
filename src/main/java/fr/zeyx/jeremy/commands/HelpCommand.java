@@ -1,8 +1,6 @@
 package fr.zeyx.jeremy.commands;
 
-import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
-
-import java.nio.channels.Channel;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 public class HelpCommand extends AbstractCommand {
 
@@ -13,11 +11,12 @@ public class HelpCommand extends AbstractCommand {
 
     @Override
     public String getDescription() {
-        return "Affiche l'aide et toutes les commandes disponibles.";
+        return "Send the help page";
     }
 
     @Override
-    public void execute(SlashCommandInteraction slashInteraction, Channel channel) {
-
+    public void handle(SlashCommandInteractionEvent event) {
+        event.reply("Coucou **" + event.getUser().getAsTag() + "** !").queue();
     }
+
 }

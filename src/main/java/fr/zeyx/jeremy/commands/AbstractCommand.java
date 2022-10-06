@@ -1,17 +1,22 @@
 package fr.zeyx.jeremy.commands;
 
+import net.dv8tion.jda.api.entities.channel.unions.MessageChannelUnion;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 
 import java.nio.channels.Channel;
+import java.util.List;
 
 public abstract class AbstractCommand {
+
+    public abstract void handle(SlashCommandInteractionEvent event);
 
     public String getName() {
         return null;
     }
 
     public String getDescription() {
-        return "No descriptions.";
+        return null;
     }
 
     public boolean isDisabled() {
@@ -22,5 +27,4 @@ public abstract class AbstractCommand {
         return true;
     }
 
-    public abstract void execute(SlashCommandInteraction slashInteraction, Channel channel, );
 }
